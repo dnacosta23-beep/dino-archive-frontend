@@ -46,12 +46,64 @@ export function DinosaurProvider({ children }) {
     const data = await response.json()
 
     if (!response.ok) {
-      throw new Error(data.error || 'The dinosaur could not be created.')
+      throw new Error(
+        data.error || 'The dinosaur could not be created.'
+      )
     }
 
     setDinosaurs((currentDinosaurs) =>
       [...currentDinosaurs, data].sort((a, b) =>
         a.name.localeCompare(b.name)
+      )
+    )
+
+    return data
+  }
+
+  async function updateDinosaur(id, formData) {
+    const response = await fetch(`${API_URL}/dinosaurs/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || 'The dinosaur could not be updated.'
+      )
+    }
+
+    setDinosaurs((currentDinosaurs) =>
+      currentDinosaurs
+        .map((dinosaur) =>
+          dinosaur.id === id ? data : dinosaur
+        )
+        .sort((a, b) => a.name.localeCompare(b.name))
+    )
+
+    return data
+  }
+
+  async function deleteDinosaur(id) {
+    const response = await fetch(`${API_URL}/dinosaurs/${id}`, {
+      method: 'DELETE',
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || 'The dinosaur could not be deleted.'
+      )
+    }
+
+    setDinosaurs((currentDinosaurs) =>
+      currentDinosaurs.filter(
+        (dinosaur) => dinosaur.id !== id
       )
     )
 
@@ -66,8 +118,10 @@ export function DinosaurProvider({ children }) {
     dinosaurs,
     loading,
     error,
-    createDinosaur,
     fetchDinosaurs,
+    createDinosaur,
+    updateDinosaur,
+    deleteDinosaur,
   }
 
   return (

@@ -341,3 +341,90 @@
     flex-direction: column;
   }
 }
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.edit-button,
+.delete-button,
+.save-button,
+.cancel-button {
+  padding: 0.65rem 0.9rem;
+  border: none;
+  border-radius: 7px;
+  font-weight: 750;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.edit-button:hover,
+.delete-button:hover,
+.save-button:hover,
+.cancel-button:hover {
+  transform: translateY(-1px);
+}
+
+.edit-button {
+  color: #fffaf0;
+  background: #6b7045;
+}
+
+.delete-button {
+  color: #fffaf0;
+  background: #8a493b;
+}
+
+.save-button {
+  color: #fffaf0;
+  background: #52613d;
+}
+
+.cancel-button {
+  color: #413a30;
+  background: #d9cfba;
+}
+
+.edit-button:disabled,
+.delete-button:disabled,
+.save-button:disabled,
+.cancel-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+
+.edit-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.edit-card {
+  border-left-color: #a66f3f;
+}
+
+.card-actions button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+button svg {
+    margin-right: 0.4rem;
+    vertical-align: middle;
+}
+
+h1 svg {
+    margin-right: 0.75rem;
+    vertical-align: middle;
+    color: #d7b56d;
+}
+
+dt svg {
+    margin-right: 0.35rem;
+    color: #7b6842;
+}

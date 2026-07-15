@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useDinosaurs } from '../context/DinosaurContext'
+import toast from 'react-hot-toast'
+import { FaPlus } from "react-icons/fa";
 
 const emptyForm = {
   name: '',
@@ -15,7 +17,6 @@ function DinosaurForm() {
 
   const [formData, setFormData] = useState(emptyForm)
   const [submitting, setSubmitting] = useState(false)
-  const [message, setMessage] = useState('')
   const [formError, setFormError] = useState('')
 
   function handleChange(event) {
@@ -37,14 +38,13 @@ function DinosaurForm() {
 
       const createdDinosaur = await createDinosaur(formData)
 
-      setMessage(
-        `${createdDinosaur.name} was added to the archive.`
-      )
+toast.success(`${createdDinosaur.name} was added to the archive!`)
 
-      setFormData(emptyForm)
-    } catch (error) {
-      setFormError(error.message)
-    } finally {
+setFormData(emptyForm)
+  } catch (error) {
+    setFormError(error.message)
+    toast.error(error.message)
+  } finally { 
       setSubmitting(false)
     }
   }
@@ -152,17 +152,17 @@ function DinosaurForm() {
           <p className="form-message form-error">{formError}</p>
         )}
 
-        {message && (
-          <p className="form-message form-success">{message}</p>
-        )}
-
         <button
-          className="submit-button"
-          type="submit"
-          disabled={submitting}
-        >
-          {submitting ? 'Saving Record...' : 'Add Dinosaur'}
-        </button>
+    className="submit-button"
+    type="submit"
+    disabled={submitting}
+>
+    <FaPlus />
+
+    {" "}
+
+    {submitting ? "Saving Record..." : "Add Dinosaur"}
+</button>
       </form>
     </section>
   )
